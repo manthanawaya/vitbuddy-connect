@@ -10,22 +10,29 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
+/** Standard emergency numbers (India). Add campus-specific numbers from official sources. */
 const emergencyContacts = [
-  { name: "Campus Emergency", number: "1800-XXX-XXXX", icon: Siren, color: "text-destructive", bg: "bg-destructive/10" },
-  { name: "Health Center", number: "+91 98765 43210", icon: Stethoscope, color: "text-info", bg: "bg-info/10" },
-  { name: "Fire Station", number: "101", icon: Flame, color: "text-warning", bg: "bg-warning/10" },
-  { name: "Campus Security", number: "+91 98765 43216", icon: Shield, color: "text-primary", bg: "bg-primary/10" },
+  { name: "National emergency", number: "112", icon: Siren, color: "text-destructive", bg: "bg-destructive/10" },
   { name: "Ambulance", number: "108", icon: HeartPulse, color: "text-destructive", bg: "bg-destructive/10" },
-  { name: "Police", number: "100", icon: AlertTriangle, color: "text-primary", bg: "bg-primary/10" },
+  { name: "Fire", number: "101", icon: Flame, color: "text-warning", bg: "bg-warning/10" },
+  { name: "Police", number: "100", icon: Shield, color: "text-primary", bg: "bg-primary/10" },
+  {
+    name: "Campus security / health desk",
+    number: "",
+    icon: Stethoscope,
+    color: "text-info",
+    bg: "bg-info/10",
+    hint: "Use the number published on your ID card, hostel notice board, or institute website.",
+  },
 ];
 
 const tips = [
-  "In case of fire, use stairs and never use elevators.",
-  "Call campus emergency first, then dial 112 for national emergency.",
-  "Keep your medical insurance card and ID always accessible.",
-  "Know the location of the nearest fire extinguisher on your floor.",
-  "In case of medical emergency, do not move the person unless necessary.",
-  "Report any suspicious activity to campus security immediately.",
+  "In case of fire, use stairs and avoid elevators where smoke is present.",
+  "For life-threatening emergencies, call the national emergency number or ambulance first.",
+  "Keep your institute ID and any medical information easily accessible.",
+  "Know where fire extinguishers and assembly points are on your floor.",
+  "For medical emergencies, follow staff instructions and do not move an injured person unless necessary.",
+  "Report suspicious activity to campus security using the official channel.",
 ];
 
 export default function Emergency() {
@@ -34,10 +41,10 @@ export default function Emergency() {
       <div className="gradient-hero rounded-2xl p-6 md:p-8 text-primary-foreground">
         <div className="flex items-center gap-3 mb-2">
           <Siren className="h-7 w-7" />
-          <h1 className="text-2xl md:text-3xl font-bold">Emergency Contacts</h1>
+          <h1 className="text-2xl md:text-3xl font-bold">Emergency contacts</h1>
         </div>
         <p className="text-primary-foreground/80 text-sm">
-          Quick access to all emergency numbers. Save these contacts on your phone.
+          Quick access to common emergency numbers. Save official campus contacts from institute notices.
         </p>
       </div>
 
@@ -49,20 +56,27 @@ export default function Emergency() {
                 <div className={`p-3 rounded-xl ${contact.bg}`}>
                   <contact.icon className={`h-6 w-6 ${contact.color}`} />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm">{contact.name}</p>
-                  <p className="text-lg font-bold text-primary">{contact.number}</p>
+                  {contact.number ? (
+                    <p className="text-lg font-bold text-primary">{contact.number}</p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground mt-1">{contact.hint}</p>
+                  )}
                 </div>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full mt-3 gap-2"
-                onClick={() => window.open(`tel:${contact.number}`)}
-              >
-                <Phone className="h-4 w-4" />
-                Call Now
-              </Button>
+              {contact.number ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-3 gap-2"
+                  type="button"
+                  onClick={() => window.open(`tel:${contact.number.replace(/\D/g, "")}`)}
+                >
+                  <Phone className="h-4 w-4" />
+                  Call now
+                </Button>
+              ) : null}
             </CardContent>
           </Card>
         ))}
@@ -72,7 +86,7 @@ export default function Emergency() {
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-warning" />
-            Emergency Tips
+            Emergency tips
           </CardTitle>
         </CardHeader>
         <CardContent>
