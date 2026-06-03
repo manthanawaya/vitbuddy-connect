@@ -29,16 +29,21 @@ A **student portal for VIT Bhopal University** that simplifies access to essenti
 ---
 
 ## 📂 Project Structure
-   ```bash
-vitbuddy-connect/
-│── public/          # Static assets
-│── src/
-│   ├── components/  # Reusable UI components
-│   ├── pages/       # Next.js pages (login, signup, dashboard)
-│   ├── utils/       # Helper functions
-│   └── styles/      # CSS/SCSS files
-│── package.json     # Dependencies and scripts
-│── README.md        # Documentation
+     ```bash
+    │── public/          # Static assets
+    │── src/
+    │   ├── components/  # Reusable UI components
+    │   ├── pages/       # Next.js pages (login, signup, dashboard)
+    │   ├── utils/       # Helper functions
+    │   └── styles/      # CSS/SCSS files
+    │── package.json     # Dependencies and scripts
+    │── README.md        # Documentation
+
+                          
+                                    
+
+                                                                           
+   
 
 
 
